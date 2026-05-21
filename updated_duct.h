@@ -35,6 +35,7 @@ void DuctClose();
 void CooltimeCalculation();
 void CooltimeMp3();
 void TagPlayerSend();
+void DuctKillEffect();
 void DuctKill();
 
 //*=============================== Sensor ===============================*
