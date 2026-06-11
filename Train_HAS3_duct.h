@@ -1,5 +1,5 @@
-#ifndef _UPDATED_DUCT_H_
-#define _UPDATED_DUCT_H_
+#ifndef _TRAIN_HAS3_DUCT_H_
+#define _TRAIN_HAS3_DUCT_H_
 
 #include "library_and_pin.h"
 
@@ -35,7 +35,6 @@ void DuctClose();
 void CooltimeCalculation();
 void CooltimeMp3();
 void TagPlayerSend();
-void DuctKillEffect();
 void DuctKill();
 
 //*=============================== Sensor ===============================*

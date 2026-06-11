@@ -1,4 +1,4 @@
-#include "updated_duct.h"
+#include "Train_HAS3_duct.h"
 
 void UpdateBrightness()
 {
@@ -103,7 +103,6 @@ void ActivateRunOnce()
     pixels_line.lightColor(line_yellow);
     pixels_round.lightColor(yellow);
     pixels_switch.lightColor(yellow);
-    has2wifi.Send((String)(const char *)my["device_name"], "device_state", "activate");
 }
 
 /**
@@ -115,14 +114,7 @@ void DataChange()
 
     if ((String)(const char *)my["game_state"] != (String)(const char *)cur["game_state"]){
         if ((String)(const char *)my["game_state"] == "setting"){
-            // 덕트 초기 상태는 activate — 변수 리셋 후 바로 activate 전환
-            use_duct_num = 0;
-            duct_available = true;
-            current_time = 0;
-            cooltime = 0;
-            duct_kill_bool = false;
-            cooltime_timer.deleteTimer(cooltime_timer_id);
-            ActivateRunOnce();
+            SettingFunc();
         }
         else if ((String)(const char *)my["game_state"] == "ready"){
             ReadyFunc();

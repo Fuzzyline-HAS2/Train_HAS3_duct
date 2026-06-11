@@ -1,4 +1,4 @@
-#include "updated_duct.h"
+#include "Train_HAS3_duct.h"
 
 /**
  * @brief 덕트 사용시 동작
@@ -90,38 +90,6 @@ void TagPlayerSend()
     has2wifi.Send((String)(const char *)my["device_name"], "tag_player", tag_player_name);
 }
 
-void DuctKillEffect()
-{
-    duct_kill_bool = true;
-    Serial.println("Duct Kill Effect!");
-    Mp3PlayLargeFolder(4, 3);
-    cool_time_neo_bool = false;
-    pixels_line.lightColor(purple);
-    pixels_round.lightColor(purple);
-    delay(500);
-    pixels_line.clear(); pixels_line.show();
-    pixels_round.clear(); pixels_round.show();
-    delay(500);
-    pixels_line.lightColor(purple);
-    pixels_round.lightColor(purple);
-    delay(500);
-    pixels_line.clear(); pixels_line.show();
-    pixels_round.clear(); pixels_round.show();
-    delay(500);
-    if (duct_available)
-    {
-        pixels_line.lightColor(line_yellow);
-        pixels_round.lightColor(yellow);
-        pixels_switch.lightColor(yellow);
-    }
-    else
-    {
-        pixels_round.lightColor(red);
-        pixels_line.lightColor(line_red);
-    }
-    cool_time_neo_bool = true;
-}
-
 void DuctKill()
 {
     // 가장 최근 태그한 플레이어 정보를 DB에서 가져옴
@@ -163,6 +131,19 @@ void DuctKill()
                 pixels_round.lightColor(red);
                 pixels_line.lightColor(line_red);
             }
+
+            has2wifi.Send(kill_player, "life_chip", "-1");
+            if ((int)tag["life_chip"] > 1)
+            {
+                has2wifi.Send(kill_player, "role", "revival");
+            }
+            else if ((int)tag["life_chip"] == 1)
+            {
+                has2wifi.Send(kill_player, "role", "ghost");
+            }
+
+            has2wifi.Send(tagger_name, "taken_chip", "+1");
+            has2wifi.Send(tagger_name, "exp", "+130");
 
             cool_time_neo_bool = true;
         }
