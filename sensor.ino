@@ -107,7 +107,10 @@ void CardChecking(uint8_t rfidData[32]) // 어떤 카드가 들어왔는지 확�
     // 카드 번호로 역할 고정: G9P1=술래, G9P2=유령, G9P3~8=생존자
     int playerNum = tagUser.length() > 3 ? tagUser.substring(3).toInt() : 0;
 
-    if (playerNum == 1)
+    bool testSurvivor = tagUser == "G2P1";
+    bool testTagger = tagUser == "G2P2";
+
+    if (playerNum == 1 || testTagger)
     {
       tagger_name = tagUser;
       if (digitalRead(EMCHECK_PIN) && !duct_kill_bool)
@@ -119,7 +122,7 @@ void CardChecking(uint8_t rfidData[32]) // 어떤 카드가 들어왔는지 확�
         DuctKillEffect();
       }
     }
-    else if (playerNum >= 3 && playerNum <= 9)
+    else if ((playerNum >= 3 && playerNum <= 9) || testSurvivor)
     {
       DuctTag(tagUser);
     }
