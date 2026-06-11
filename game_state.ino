@@ -50,6 +50,7 @@ void SettingFunc()
 
     use_duct_num = 0;
     duct_available = true;
+    duct_open_bool = false;
     current_time = 0;
     cooltime = 0;
     cooltime_timer.deleteTimer(cooltime_timer_id);
@@ -69,6 +70,7 @@ void ReadyFunc()
 
     use_duct_num = 0;
     duct_available = true;
+    duct_open_bool = false;
     current_time = 0;
     cooltime = 0;
     cooltime_timer.deleteTimer(cooltime_timer_id);
@@ -95,6 +97,7 @@ void ActivateRunOnce()
 {
     UpdateBrightness();
     game_state = activate;
+    duct_open_bool = false;
 
     // 쿨타임과 쿨타임 증가량을 DB에서 읽어 사용할 수 있음
     cooltime_set = (int)my["cool_time"];

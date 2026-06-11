@@ -105,19 +105,19 @@ void CardChecking(uint8_t rfidData[32]) // 어떤 카드가 들어왔는지 확�
   if (game_state == activate)
   {
     // 1. 태그한 플레이어의 역할과 생명칩갯수, 최대생명칩갯수 등 읽어오기
-    has2wifi.Receive(tagUser);
+    int playerNum = tagUser.length() > 3 ? tagUser.substring(3).toInt() : 0;
     // 2. 술래인지, 플레이어인지 구분
-    if ((String)(const char *)tag["role"] == "player" || (String)(const char *)tag["role"] == "revival" || (String)(const char *)tag["role"] == "ghost")
-    {
-      DuctTag(tagUser);
-    }
-    else if ((String)(const char *)tag["role"] == "tagger" && ((int)tag["taken_chip"] < (int)tag["max_taken_chip"]) && (String)(const char *)tag["device_state"] == "activate")
+    if (tagUser == "G9P1" || tagUser == "G2P2")
     {
       tagger_name = tagUser;
-      if (digitalRead(EMCHECK_PIN) && !duct_kill_bool)
+      if (duct_open_bool && !duct_kill_bool)
       {
         DuctKill();
       }
+    }
+    else if ((tagUser.startsWith("G9P") && playerNum >= 3 && playerNum <= 8) || tagUser == "G2P1")
+    {
+      DuctTag(tagUser);
     }
   }
   else if (game_state == setting)

@@ -28,6 +28,7 @@ void DuctOpen(bool switch_push)
             cooltime_timer.deleteTimer(cooltime_timer_id);
         }
         Mp3PlayLargeFolder(1, 2);
+        duct_open_bool = true;
         switch_available = false;
         duct_available = false;
         pixels_line.lightColor(line_red);
@@ -41,6 +42,7 @@ void DuctOpen(bool switch_push)
 void DuctClose()
 {
     digitalWrite(RELAY_PIN, LOW);
+    duct_open_bool = false;
     pixels_line.lightColor(line_red);
     pixels_switch.lightColor(yellow);
     switch_available = true;
@@ -93,59 +95,36 @@ void TagPlayerSend()
 void DuctKill()
 {
     // 가장 최근 태그한 플레이어 정보를 DB에서 가져옴
-    String kill_player = (String)(const char *)my["tag_player"];
-
-    has2wifi.Receive(kill_player);
-
-    if (kill_player.startsWith("G"))
+    duct_kill_bool = true;
+    Serial.println("Duct Kill!");
+    if ((String)(const char *)shift_machine["selected_language"] == "EN")
     {
-        if ((String)(const char *)tag["role"] == "player")
-        {
-            duct_kill_bool = true;
-            Serial.println("Duct Kill!");
-            if ((String)(const char *)shift_machine["selected_language"] == "EN")
-            {
-                Mp3PlayLargeFolder(4, 3);
-            }
-            cool_time_neo_bool = false;
-            pixels_line.lightColor(purple);
-            pixels_round.lightColor(purple);
-            delay(500);
-            pixels_line.clear(); pixels_line.show();
-            pixels_round.clear(); pixels_round.show();
-            delay(500);
-            pixels_line.lightColor(purple);
-            pixels_round.lightColor(purple);
-            delay(500);
-            pixels_line.clear(); pixels_line.show();
-            pixels_round.clear(); pixels_round.show();
-            delay(500);
-            if (duct_available)
-            {
-                pixels_line.lightColor(line_yellow);
-                pixels_round.lightColor(yellow);
-                pixels_switch.lightColor(yellow);
-            }
-            else
-            {
-                pixels_round.lightColor(red);
-                pixels_line.lightColor(line_red);
-            }
-
-            has2wifi.Send(kill_player, "life_chip", "-1");
-            if ((int)tag["life_chip"] > 1)
-            {
-                has2wifi.Send(kill_player, "role", "revival");
-            }
-            else if ((int)tag["life_chip"] == 1)
-            {
-                has2wifi.Send(kill_player, "role", "ghost");
-            }
-
-            has2wifi.Send(tagger_name, "taken_chip", "+1");
-            has2wifi.Send(tagger_name, "exp", "+130");
-
-            cool_time_neo_bool = true;
-        }
+        Mp3PlayLargeFolder(4, 3);
     }
+    cool_time_neo_bool = false;
+    pixels_line.lightColor(purple);
+    pixels_round.lightColor(purple);
+    delay(500);
+    pixels_line.clear(); pixels_line.show();
+    pixels_round.clear(); pixels_round.show();
+    delay(500);
+    pixels_line.lightColor(purple);
+    pixels_round.lightColor(purple);
+    delay(500);
+    pixels_line.clear(); pixels_line.show();
+    pixels_round.clear(); pixels_round.show();
+    delay(500);
+    if (duct_available)
+    {
+        pixels_line.lightColor(line_yellow);
+        pixels_round.lightColor(yellow);
+        pixels_switch.lightColor(yellow);
+    }
+    else
+    {
+        pixels_round.lightColor(red);
+        pixels_line.lightColor(line_red);
+    }
+
+    cool_time_neo_bool = true;
 }

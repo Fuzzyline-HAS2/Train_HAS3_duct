@@ -7,6 +7,7 @@
 int use_duct_num;   // 덕트 사용횟수
 bool duct_available = true;  // 덕트 사용 가능 
 bool switch_available = true;
+bool duct_open_bool = false;
 String tag_player_name = "";
 String cur_tag_user = "";
 int tagUser_tag_num = 0;
