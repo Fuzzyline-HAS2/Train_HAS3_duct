@@ -9,7 +9,7 @@
  * 
  */
 
-#define FIRMWARE_VER 7
+#define FIRMWARE_VER 10
 #include "Train_HAS3_duct.h"
 
 //************************************************ Core1 ********************************************************************
@@ -19,7 +19,7 @@
 void DuctInit()
 {
   Serial.begin(115200);
-  has2wifi.Setup("badland_shoot", "Has3");
+  has2wifi.Setup("badland_shoot", "Code3824@");
   ota.setLogStream(Serial);
   ota.setOnSuccess([]() {
     has2wifi.Send((String)(const char*)my["device_name"], "device_state", "setting");
