@@ -119,7 +119,7 @@ void CardChecking(uint8_t rfidData[32]) // 어떤 카드가 들어왔는지 확�
         DuctKillEffect();
       }
     }
-    else if (playerNum >= 3 && playerNum <= 8)
+    else if (playerNum >= 3 && playerNum <= 9)
     {
       DuctTag(tagUser);
     }

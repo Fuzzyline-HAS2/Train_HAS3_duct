@@ -164,19 +164,6 @@ void DuctKill()
                 pixels_line.lightColor(line_red);
             }
 
-            has2wifi.Send(kill_player, "life_chip", "-1");
-            if ((int)tag["life_chip"] > 1)
-            {
-                has2wifi.Send(kill_player, "role", "revival");
-            }
-            else if ((int)tag["life_chip"] == 1)
-            {
-                has2wifi.Send(kill_player, "role", "ghost");
-            }
-
-            has2wifi.Send(tagger_name, "taken_chip", "+1");
-            has2wifi.Send(tagger_name, "exp", "+130");
-
             cool_time_neo_bool = true;
         }
     }
