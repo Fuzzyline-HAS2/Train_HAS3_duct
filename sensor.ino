@@ -57,7 +57,6 @@ void RfidInit()
  */
 void RfidLoop()
 {
-  if (tagger_mode) return;   // "이로운 효과" 동결 중 RFID(pn532) 비활성
   if (!rfid_tag)
   {
     rfid_tag = true;
@@ -111,18 +110,27 @@ void CardChecking(uint8_t rfidData[32]) // 어떤 카드가 들어왔는지 확�
     if (tagUser == "G9P1")
     {
       tagger_name = tagUser;
-      if (duct_open_bool)   // 문이 열려있을 때 술래가 태그하면 킬
+      if (digitalRead(EMCHECK_PIN))   // EM락이 열려있을 때 술래 태그하면 킬 (tagger 동결 중에도 가능)
       {
         DuctKill();
+        if (tagger_mode)    // 동결 중이면 킬 연출 후 보라색 복원
+        {
+          pixels_line.lightColor(line_purple);
+          pixels_round.lightColor(purple);
+          pixels_switch.lightColor(purple);
+        }
       }
     }
-    else if (tagUser == "G9P2")
+    else if (!tagger_mode)  // 동결 중에는 술래 킬 외 다른 태그(고스트/플레이어) 무시
     {
-      DuctGhost(tagUser);
-    }
-    else if (tagUser.startsWith("G9P") && playerNum >= 3 && playerNum <= 9)
-    {
-      DuctTag(tagUser);
+      if (tagUser == "G9P2")
+      {
+        DuctGhost(tagUser);
+      }
+      else if (tagUser.startsWith("G9P") && playerNum >= 3 && playerNum <= 9)
+      {
+        DuctTag(tagUser);
+      }
     }
   }
   else if (game_state == setting)
