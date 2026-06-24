@@ -107,15 +107,19 @@ void CardChecking(uint8_t rfidData[32]) // 어떤 카드가 들어왔는지 확�
     // 1. 태그한 플레이어의 역할과 생명칩갯수, 최대생명칩갯수 등 읽어오기
     int playerNum = tagUser.length() > 3 ? tagUser.substring(3).toInt() : 0;
     // 2. 술래인지, 플레이어인지 구분
-    if (tagUser == "G9P1" || tagUser == "G2P2")
+    if (tagUser == "G9P1")
     {
       tagger_name = tagUser;
-      if (duct_open_bool && !duct_kill_bool)
+      if ((duct_open_bool || digitalRead(EMCHECK_PIN)) && !duct_kill_bool)
       {
         DuctKill();
       }
     }
-    else if ((tagUser.startsWith("G9P") && playerNum >= 3 && playerNum <= 8) || tagUser == "G2P1")
+    else if (tagUser == "G9P2")
+    {
+      DuctGhost(tagUser);
+    }
+    else if (tagUser.startsWith("G9P") && playerNum >= 3 && playerNum <= 9)
     {
       DuctTag(tagUser);
     }

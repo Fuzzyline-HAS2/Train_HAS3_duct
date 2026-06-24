@@ -12,6 +12,7 @@ String tag_player_name = "";
 String cur_tag_user = "";
 int tagUser_tag_num = 0;
 String tagger_name = "";
+String ghost_name = "";
 
 typedef enum GameState{ setting, ready, activate } GameState;
 
@@ -31,6 +32,7 @@ int cooltime_set = 30;
 int cooltime_add = 30;
 
 void DuctTag(String tag_player);
+void DuctGhost(String tag_ghost);
 void DuctOpen(bool switch_push = false);
 void DuctClose();
 void CooltimeCalculation();
@@ -102,12 +104,14 @@ int red[3]         = {255, 0,   0  };
 int yellow[3]      = {255, 255, 0  };
 int green[3]       = {0,   255, 0  };
 int purple[3]      = {255, 0,   255};
+int blue[3]        = {0,   0,   255};
 
 int line_white[3]  = {255, 255, 255};
 int line_red[3]    = {255, 0,   0  };
 int line_yellow[3] = {255, 255, 0  };
 int line_green[3]  = {0,   255, 0  };
 int line_purple[3] = {255, 0,   255};
+int line_blue[3]   = {0,   0,   255};
 
 //================================ Rfid ==================================
 Adafruit_PN532 nfc(PN532_SCK, PN532_MISO, PN532_MOSI, PN532_SS);

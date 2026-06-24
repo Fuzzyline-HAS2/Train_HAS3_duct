@@ -19,6 +19,20 @@ void DuctTag(String tag_player)
     }
 }
 
+void DuctGhost(String tag_ghost)
+{
+    ghost_name = tag_ghost;
+    Mp3PlayLargeFolder(1, 2);
+    duct_open_bool = true;
+    switch_available = false;
+    duct_available = false;
+    pixels_line.lightColor(line_blue);
+    pixels_switch.lightColor(blue);
+    pixels_round.lightColor(blue);
+    digitalWrite(RELAY_PIN, HIGH);
+    duct_close_timer_id = duct_close_timer.setTimeout(4000, DuctClose);
+}
+
 void DuctOpen(bool switch_push)
 {
     if (duct_available || switch_push)
