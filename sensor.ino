@@ -111,7 +111,10 @@ void CardChecking(uint8_t rfidData[32]) // 어떤 카드가 들어왔는지 확�
     if (tagUser == "G9P1")
     {
       tagger_name = tagUser;
-      DuctKill();   // 술래가 태그하면 조건(duct_open/EMCHECK/one-shot) 없이 항상 킬 시도
+      if (duct_open_bool)   // 문이 열려있을 때 술래가 태그하면 킬
+      {
+        DuctKill();
+      }
     }
     else if (tagUser == "G9P2")
     {
