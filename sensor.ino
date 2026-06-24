@@ -57,6 +57,7 @@ void RfidInit()
  */
 void RfidLoop()
 {
+  if (tagger_mode) return;   // "이로운 효과" 동결 중 RFID(pn532) 비활성
   if (!rfid_tag)
   {
     rfid_tag = true;
@@ -110,10 +111,7 @@ void CardChecking(uint8_t rfidData[32]) // 어떤 카드가 들어왔는지 확�
     if (tagUser == "G9P1")
     {
       tagger_name = tagUser;
-      if ((duct_open_bool || digitalRead(EMCHECK_PIN)) && !duct_kill_bool)
-      {
-        DuctKill();
-      }
+      DuctKill();   // 술래가 태그하면 조건(duct_open/EMCHECK/one-shot) 없이 항상 킬 시도
     }
     else if (tagUser == "G9P2")
     {

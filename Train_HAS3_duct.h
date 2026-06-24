@@ -20,6 +20,7 @@ GameState game_state = setting;
 
 bool cool_time_neo_bool = true;
 bool duct_kill_bool;
+bool tagger_mode = false;   // "이로운 효과" - tagger 수신 시 덕트 동결(보라색+RFID off), back 시 원복
 //============================ Hardware Serial ============================
 // HardwareSerial MySerial1(1); // 사용X
 HardwareSerial MySerial2(2);    // MP3
@@ -65,6 +66,9 @@ void SettingFunc();
 void ReadyFunc();
 void ActionFunc();
 void DataChange();
+void EnterTaggerMode();
+void ExitTaggerMode();
+void AutoExitTaggerMode();
 
 //=============================== Neopixel ===============================
 #define NUMPIXELS_LINE           30
@@ -139,11 +143,13 @@ SimpleTimer cooltime_timer;
 SimpleTimer duct_close_timer;
 SimpleTimer rfid_timer;
 SimpleTimer wifi_timer;
+SimpleTimer tagger_timer;   // tagger 모드 자동 해제(10초)용
 
 int cooltime_timer_id;
 int duct_close_timer_id;
 int rfid_timer_id;
 int wifi_timer_id;
+int tagger_timer_id;
 
 void TimerRun();
 void CooltimeTimerFunc();

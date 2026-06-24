@@ -109,6 +109,11 @@ void TagPlayerSend()
 void DuctKill()
 {
     // 가장 최근 태그한 플레이어 정보를 DB에서 가져옴
+    String kill_player = (String)(const char *)my["tag_player"];
+
+    has2wifi.Receive(kill_player);
+
+    // 대상 검증 없이 술래가 태그하면 무조건 킬 처리
     duct_kill_bool = true;
     Serial.println("Duct Kill!");
     if ((String)(const char *)shift_machine["selected_language"] == "EN")
@@ -139,6 +144,19 @@ void DuctKill()
         pixels_round.lightColor(red);
         pixels_line.lightColor(line_red);
     }
+
+    has2wifi.Send(kill_player, "life_chip", "-1");
+    if ((int)tag["life_chip"] > 1)
+    {
+        has2wifi.Send(kill_player, "role", "revival");
+    }
+    else if ((int)tag["life_chip"] == 1)
+    {
+        has2wifi.Send(kill_player, "role", "ghost");
+    }
+
+    has2wifi.Send(tagger_name, "taken_chip", "+1");
+    has2wifi.Send(tagger_name, "exp", "+130");
 
     cool_time_neo_bool = true;
 }
