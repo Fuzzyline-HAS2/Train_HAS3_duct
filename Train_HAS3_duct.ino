@@ -9,7 +9,7 @@
  * 
  */
 
-#define FIRMWARE_VER 10
+#define FIRMWARE_VER 11
 #define PARTITION_VER 1
 #include "Train_HAS3_duct.h"
 
