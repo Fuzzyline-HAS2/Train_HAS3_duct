@@ -103,19 +103,19 @@ int colorBrightness = DEFAULT_COLOR_BRIGHTNESS;
 int lineBrightness  = DEFAULT_LINE_BRIGHTNESS;
 
 // Neopixel 색상정보
-int white[3]       = {255, 255, 255};
-int red[3]         = {255, 0,   0  };
-int yellow[3]      = {255, 255, 0  };
-int green[3]       = {0,   255, 0  };
-int purple[3]      = {255, 0,   255};
-int blue[3]        = {0,   0,   255};
+int white[3]       = {100, 100, 100};
+int red[3]         = {100, 0,   0  };
+int yellow[3]      = {100, 100, 0  };
+int green[3]       = {0,   100, 0  };
+int purple[3]      = {100, 0,   100};
+int blue[3]        = {0,   0,   100};
 
-int line_white[3]  = {255, 255, 255};
-int line_red[3]    = {255, 0,   0  };
-int line_yellow[3] = {255, 255, 0  };
-int line_green[3]  = {0,   255, 0  };
-int line_purple[3] = {255, 0,   255};
-int line_blue[3]   = {0,   0,   255};
+int line_white[3]  = {100, 100, 100};
+int line_red[3]    = {100, 0,   0  };
+int line_yellow[3] = {100, 100, 0  };
+int line_green[3]  = {0,   100, 0  };
+int line_purple[3] = {100, 0,   100};
+int line_blue[3]   = {0,   0,   100};
 
 //================================ Rfid ==================================
 Adafruit_PN532 nfc(PN532_SCK, PN532_MISO, PN532_MOSI, PN532_SS);
